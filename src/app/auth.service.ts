@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -10,13 +9,17 @@ export class AuthService {
   private apiUrl = 'http://localhost:8080/api/auth';
   private tokenKey = 'authToken';
 
-  constructor(private http: HttpClient, private cookieService: CookieService) { }
+  constructor(private http: HttpClient) { }
 
   login(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/signin`, { username, password }).pipe(
+    return this.http.post<{ token: string }>(`${this.apiUrl}/signin`, 
+      { username, password },
+      { withCredentials: true }
+    ).pipe(
       tap(response => {
-        const token = this.cookieService.get('bezkoder');
-        console.log('Token from cookie:', token); // Debug log
+        const token = response.token;
+        console.log('Token from response:', token); // Debug log
+
         if (token) {
           this.setToken(token);
         } else {
@@ -27,7 +30,7 @@ export class AuthService {
   }
 
   register(user: { username: string, email: string, password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/signup`, user);
+    return this.http.post(`${this.apiUrl}/signup`, user, { withCredentials: true });
   }
 
   getToken(): string | null {

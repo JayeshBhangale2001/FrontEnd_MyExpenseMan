@@ -12,14 +12,8 @@ export class IncomeService {
   constructor(private http: HttpClient) { }
 
   private getAuthHeaders(): HttpHeaders {
-    // Check if localStorage is available
-    if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('authToken'); // Retrieve the token from local storage or wherever you store it
-      return new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      });
-    }
-    return new HttpHeaders(); // Return empty headers if localStorage is not available
+    const token = localStorage.getItem('authToken');
+    return token ? new HttpHeaders({ 'Authorization': `Bearer ${token}` }) : new HttpHeaders();
   }
 
   getIncomes(): Observable<Income[]> {
@@ -28,5 +22,13 @@ export class IncomeService {
 
   saveIncome(income: Income): Observable<Income> {
     return this.http.post<Income>(this.apiUrl, income, { headers: this.getAuthHeaders() });
+  }
+
+  updateIncome(income: Income): Observable<Income> {
+    return this.http.put<Income>(`${this.apiUrl}/${income.id}`, income, { headers: this.getAuthHeaders() });
+  }
+
+  deleteIncome(incomeId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${incomeId}`, { headers: this.getAuthHeaders() });
   }
 }

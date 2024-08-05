@@ -1,9 +1,16 @@
-// src/app/income.model.ts
+export class Income {
+  id?: number;
+  month: string;
+  source: string;
+  amount: number;
+  investments: string;
+  date: string; // Add this line
 
-export interface Income {
-    month: string;
-    source: string;
-    amount: number;
-    investments: string;
+  constructor(month: string, source: string, amount: number, investments: string, date: string) {
+    this.month = month;
+    this.source = source;
+    this.amount = amount;
+    this.investments = investments;
+    this.date = date; // Add this line
   }
-  
+}
