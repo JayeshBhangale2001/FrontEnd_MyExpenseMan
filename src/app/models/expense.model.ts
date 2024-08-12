@@ -3,6 +3,6 @@ export interface Expense {
     month: string;
     expenseType: string;
     expenseAmount: number;
-    date: string; // Use ISO string format for date
+    createdAt: string; // Use ISO string format for date
   }
   

@@ -62,14 +62,37 @@ export class ReusableTableComponent implements OnInit, OnChanges {
   
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    
+    // Split the filter value by semicolons to get separate filter groups
+    const semicolonGroups = filterValue.split(';').map(group => group.trim()).filter(group => group.length > 0);
+  
+    // Set the filter predicate
+    this.dataSource.filterPredicate = (data: any, filter: string) => {
+      // Check if any of the semicolon-separated filters match
+      return semicolonGroups.some(group => {
+        // Split each group by commas and trim values
+        const commaFilters = group.split(',').map(f => f.trim()).filter(f => f.length > 0);
+  
+        // Check if the current data row matches all filters in the group
+        return commaFilters.every(filter => 
+          Object.values(data).some(value =>
+            value && value.toString().toLowerCase().includes(filter)
+          )
+        );
+      });
+    };
+  
+    // Apply the filter
+    this.dataSource.filter = filterValue;
+  
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
-
+  
+  
+  
   editRecord(record: any) {
     this.edit.emit(record);
   }

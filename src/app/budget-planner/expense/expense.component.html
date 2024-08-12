@@ -1,91 +1,56 @@
-<div class="navbar">
-  <h2>EXPENSE</h2>
-</div>
-
-<div class="main-container">
-  <div class="container">
-    <h2>Expense</h2>
-    <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()" class="input-form">
-      <div class="form-group">
-        <select formControlName="month" id="month" class="form-control" (change)="onChange($event)">
-          <option value="" disabled>Select Month</option>
-          <option value="January">January</option>
-          <option value="February">February</option>
-          <option value="March">March</option>
-          <option value="April">April</option>
-          <option value="May">May</option>
-          <option value="June">June</option>
-          <option value="July">July</option>
-          <option value="August">August</option>
-          <option value="September">September</option>
-          <option value="October">October</option>
-          <option value="November">November</option>
-          <option value="December">December</option>
-        </select>
-      </div>
-      <div class="total-expense">
-        Total expense for {{ selectedMonth }}: ${{ calculateTotalExpense(selectedMonth) }}
-      </div>
-      <div class="form-group">
-        <label for="expenseType">Expense Type:</label>
-        <input type="text" formControlName="expenseType" id="expenseType" class="form-control" />
-      </div>
-      <div class="form-group">
-        <label for="expenseAmount">Amount:</label>
-        <input type="number" formControlName="expenseAmount" id="expenseAmount" class="form-control" />
-      </div>
-      <div class="form-group">
-        <label for="date">Date:</label>
-        <input type="datetime-local" formControlName="date" id="date" class="form-control" />
-      </div>
-      <button type="submit" class="btn btn-primary">Add Expense</button>
-    </form>
-  </div>
-
-  <div class="table-container">
-    <h2>Expense List for {{ selectedMonth }}</h2>
-    <app-reusable-table
-      [columns]="['expenseType', 'expenseAmount', 'createdAt']"
-      [data]="getFilteredExpenses()"
-      (edit)="onEdit($event)"
-      (delete)="onDelete($event.id)">
-    </app-reusable-table>
-  </div>
-
-  <div class="container" *ngIf="editingExpense">
-    <h2>Edit Expense</h2>
-    <form [formGroup]="editForm" (ngSubmit)="onSaveEdit()" class="input-form">
-      <div class="form-group">
-        <label for="month">Month</label>
-        <select formControlName="month" id="month" class="form-control">
-          <option value="January">January</option>
-          <option value="February">February</option>
-          <option value="March">March</option>
-          <option value="April">April</option>
-          <option value="May">May</option>
-          <option value="June">June</option>
-          <option value="July">July</option>
-          <option value="August">August</option>
-          <option value="September">September</option>
-          <option value="October">October</option>
-          <option value="November">November</option>
-          <option value="December">December</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="expenseType">Expense Type</label>
-        <input type="text" formControlName="expenseType" id="expenseType" class="form-control" />
-      </div>
-      <div class="form-group">
-        <label for="expenseAmount">Amount</label>
-        <input type="number" formControlName="expenseAmount" id="expenseAmount" class="form-control" />
-      </div>
-      <div class="form-group">
-        <label for="date">Date</label>
-        <input type="datetime-local" formControlName="date" id="date" class="form-control" />
-      </div>
-      <button type="submit" class="btn btn-primary">Save Changes</button>
-      <button (click)="cancelEdit()" class="btn btn-secondary">Cancel</button>
-    </form>
-  </div>
-</div>
+<mat-card>
+  <mat-card-title>Expense Management</mat-card-title>
+  <mat-tab-group [(selectedIndex)]="currentTab">
+    <mat-tab label="Add Expense">
+      <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()" class="expense-form">
+        <mat-form-field appearance="fill">
+          <mat-label>Month</mat-label>
+          <input matInput formControlName="month" placeholder="Enter Month">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Expense Type</mat-label>
+          <input matInput formControlName="expenseType" placeholder="Enter Expense Type">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Expense Amount</mat-label>
+          <input matInput formControlName="expenseAmount" placeholder="Enter Expense Amount">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Date</mat-label>
+          <input matInput formControlName="date" placeholder="Enter Date">
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Add Expense</button>
+      </form>
+    </mat-tab>
+    <mat-tab label="Expense Transactions">
+      <app-reusable-table
+        [columns]="['month', 'expenseType', 'expenseAmount', 'createdAt']"
+        [data]="expensesList"
+        (edit)="onEdit($event)"
+        (delete)="onDelete($event.id)">
+      </app-reusable-table>
+    </mat-tab>
+    <mat-tab label="Edit Expense">
+      <form [formGroup]="editForm" (ngSubmit)="onSaveEdit()" class="edit-form">
+        <mat-form-field appearance="fill">
+          <mat-label>Month</mat-label>
+          <input matInput formControlName="month" placeholder="Enter Month">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Expense Type</mat-label>
+          <input matInput formControlName="expenseType" placeholder="Enter Expense Type">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Expense Amount</mat-label>
+          <input matInput formControlName="expenseAmount" placeholder="Enter Expense Amount">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Date</mat-label>
+          <input matInput formControlName="date" placeholder="Enter Date">
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Save Changes</button>
+        <button mat-raised-button color="warn" type="button" (click)="cancelEdit()">Cancel</button>
+      </form>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>
