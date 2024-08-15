@@ -16,8 +16,10 @@
           <input matInput formControlName="expenseAmount" placeholder="Enter Expense Amount">
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Date</mat-label>
-          <input matInput formControlName="date" placeholder="Enter Date">
+          <mat-label>Date & Time</mat-label>
+          <input matInput [ngxMatDatetimePicker]="picker" formControlName="date" placeholder="Select Date & Time">
+          <ngx-mat-datepicker-toggle matSuffix [for]="picker"></ngx-mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
         </mat-form-field>
         <button mat-raised-button color="primary" type="submit">Add Expense</button>
       </form>
@@ -45,8 +47,10 @@
           <input matInput formControlName="expenseAmount" placeholder="Enter Expense Amount">
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Date</mat-label>
-          <input matInput formControlName="date" placeholder="Enter Date">
+          <mat-label>Date & Time</mat-label>
+          <input matInput [ngxMatDatetimePicker]="pickerEdit" formControlName="date" placeholder="Select Date & Time">
+          <ngx-mat-datepicker-toggle matSuffix [for]="pickerEdit"></ngx-mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #pickerEdit></ngx-mat-datetime-picker>
         </mat-form-field>
         <button mat-raised-button color="primary" type="submit">Save Changes</button>
         <button mat-raised-button color="warn" type="button" (click)="cancelEdit()">Cancel</button>
