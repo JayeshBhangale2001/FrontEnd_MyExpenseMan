@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
@@ -11,6 +13,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ExpenseService } from '../../expense.service';
 import { Expense } from '../../models/expense.model';
 import { ReusableTableComponent } from '../../reusable-table/reusable-table.component';
+import { NgxMatDatetimePickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
+
 @Component({
   selector: 'app-expense',
   standalone: true,
@@ -24,7 +28,12 @@ import { ReusableTableComponent } from '../../reusable-table/reusable-table.comp
     MatButtonModule,
     MatCardModule,
     MatTabsModule, // Make sure MatTabsModule is imported
-    ReusableTableComponent
+    ReusableTableComponent,
+    MatDatepickerModule,
+    MatNativeDateModule,// If you're using native date adapter
+    NgxMatDatetimePickerModule,
+    NgxMatNativeDateModule
+    
   ],
   templateUrl: './expense.component.html',
   styleUrls: ['./expense.component.scss'],
