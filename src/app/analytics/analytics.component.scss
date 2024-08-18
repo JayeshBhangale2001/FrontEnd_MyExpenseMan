@@ -1,0 +1,15 @@
+mat-card {
+    margin: 16px;
+  }
+  
+  mat-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  canvas {
+    max-width: 600px;
+    width: 100%;
+  }
+  

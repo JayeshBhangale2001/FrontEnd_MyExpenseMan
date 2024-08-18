@@ -16,6 +16,8 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, Routes } from '@angular/router';
 import { AuthInterceptor } from './auth.interceptor'; // Adjust the import path as necessary
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+//import { CustomDatetimePickerComponent } from '../app/custom-datetime-picker/custom-datetime-picker.component'; 
 const routes: Routes = [
   { path: 'budget-planner', loadChildren: () => import('./budget-planner/budget-planner.module').then(m => m.BudgetPlannerModule) }
 ];
@@ -28,7 +30,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     importProvidersFrom(
-      ReactiveFormsModule, 
+      ReactiveFormsModule,
       MatSnackBarModule,
       MatFormFieldModule,
       MatInputModule,
@@ -41,7 +43,8 @@ export const appConfig: ApplicationConfig = {
       MatIconModule,
       NgxMatDatetimePickerModule,
       NgxMatTimepickerModule,
-      NgxMatNativeDateModule
+      NgxMaterialTimepickerModule
+    //  CustomDatetimePickerComponent
     )
   ]
 };
