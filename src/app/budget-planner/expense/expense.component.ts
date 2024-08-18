@@ -10,11 +10,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select'; // Import MatSelectModule
 import { ExpenseService } from '../../expense.service';
 import { Expense } from '../../models/expense.model';
 import { ReusableTableComponent } from '../../reusable-table/reusable-table.component';
 import { NgxMatDatetimePickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
-
 @Component({
   selector: 'app-expense',
   standalone: true,
@@ -27,53 +27,92 @@ import { NgxMatDatetimePickerModule, NgxMatNativeDateModule } from '@angular-mat
     MatInputModule,
     MatButtonModule,
     MatCardModule,
-    MatTabsModule, // Make sure MatTabsModule is imported
+    MatTabsModule,
     ReusableTableComponent,
     MatDatepickerModule,
-    MatNativeDateModule,// If you're using native date adapter
+    MatNativeDateModule,
     NgxMatDatetimePickerModule,
-    NgxMatNativeDateModule
-    
+    NgxMatNativeDateModule,
+    MatSelectModule 
+     
   ],
   templateUrl: './expense.component.html',
   styleUrls: ['./expense.component.scss'],
-  providers: [DatePipe] // Add DatePipe to providers
+  providers: [DatePipe]
 })
 export class ExpenseComponent implements OnInit {
+  months: string[] = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+  dateOptions = [
+    { label: 'Today', value: 'today' },
+    { label: 'Tomorrow', value: 'tomorrow' },
+    { label: 'Yesterday', value: 'yesterday' },
+    { label: 'Day After Tomorrow', value: 'dayAfterTomorrow' }
+  ]; // Add this property
+  currentMonth: string = ''; // Initialize with an empty string
   expenseForm!: FormGroup;
   editForm!: FormGroup;
-  currentTab: string = 'add';
+  currentTab: number = 0;
   editingExpense: Expense | null = null;
   expensesList: Expense[] = [];
 
   constructor(
     private fb: FormBuilder,
     private expenseService: ExpenseService,
-    private datePipe: DatePipe // Inject DatePipe
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
+    const now = new Date();
     this.expenseForm = this.fb.group({
-      month: ['', Validators.required],
+      month: [this.months[now.getMonth()], Validators.required],
       expenseType: ['', Validators.required],
       expenseAmount: ['', Validators.required],
-      date: ['', Validators.required]
+      expenseDate: ['', Validators.required]
     });
 
     this.editForm = this.fb.group({
       id: [''],
-      month: ['', Validators.required],
+      month: [this.months[now.getMonth()], Validators.required],
       expenseType: ['', Validators.required],
       expenseAmount: ['', Validators.required],
-      date: ['', Validators.required]
+      expenseDate: ['', Validators.required]
     });
 
     this.fetchExpenses();
   }
 
-  switchTab(tab: string) {
-    this.currentTab = tab;
-    if (tab === 'transactions') {
+  onDateOptionChange(option: string) {
+    let date: Date;
+    switch (option) {
+      case 'today':
+        date = new Date();
+        break;
+      case 'tomorrow':
+        date = new Date();
+        date.setDate(date.getDate() + 1);
+        break;
+      case 'yesterday':
+        date = new Date();
+        date.setDate(date.getDate() - 1);
+        break;
+      case 'dayAfterTomorrow':
+        date = new Date();
+        date.setDate(date.getDate() + 2);
+        break;
+      default:
+        date = new Date();
+    }
+
+    this.expenseForm.get('expenseDate')?.setValue(date);
+    this.editForm.get('expenseDate')?.setValue(date);
+  }
+
+  switchTab(tabIndex: number) {
+    this.currentTab = tabIndex;
+    if (tabIndex === 1) {
       this.fetchExpenses();
     }
   }
@@ -83,7 +122,7 @@ export class ExpenseComponent implements OnInit {
       (expenses: Expense[]) => {
         this.expensesList = expenses.map(expense => ({
           ...expense,
-          createdAt: this.datePipe.transform(expense.createdAt, 'short') || '' // Ensure createdAt is always a string
+          expenseDate: this.datePipe.transform(expense.expenseDate, 'short') || ''
         }));
       },
       (error) => {
@@ -99,10 +138,10 @@ export class ExpenseComponent implements OnInit {
         (savedExpense) => {
           this.expensesList.push({
             ...savedExpense,
-            createdAt: this.datePipe.transform(savedExpense.createdAt, 'short') || '' // Ensure createdAt is always a string
+            expenseDate: this.datePipe.transform(savedExpense.expenseDate, 'short') || ''
           });
           this.expenseForm.reset();
-          this.switchTab('transactions');
+          this.switchTab(1);
         },
         (error) => {
           console.error('Error Saving Expense:', error);
@@ -113,8 +152,11 @@ export class ExpenseComponent implements OnInit {
 
   onEdit(expense: Expense) {
     this.editingExpense = { ...expense };
-    this.editForm.patchValue(this.editingExpense);
-    this.switchTab('edit');
+    this.editForm.patchValue({
+      ...this.editingExpense,
+      expenseDate: new Date(this.editingExpense.expenseDate)
+    });
+    this.switchTab(2);
   }
 
   onSaveEdit() {
@@ -126,11 +168,11 @@ export class ExpenseComponent implements OnInit {
           if (index !== -1) {
             this.expensesList[index] = {
               ...savedExpense,
-              createdAt: this.datePipe.transform(savedExpense.createdAt, 'short') || '' // Ensure createdAt is always a string
+              expenseDate: this.datePipe.transform(savedExpense.expenseDate, 'short') || ''
             };
           }
           this.editingExpense = null;
-          this.switchTab('transactions');
+          this.switchTab(1);
         },
         (error) => {
           console.error('Error Updating Expense:', error);
@@ -138,7 +180,6 @@ export class ExpenseComponent implements OnInit {
       );
     }
   }
-
 
   onDelete(expenseId: number) {
     this.expenseService.deleteExpense(expenseId).subscribe(
@@ -153,6 +194,6 @@ export class ExpenseComponent implements OnInit {
 
   cancelEdit() {
     this.editingExpense = null;
-    this.switchTab('transactions');
+    this.switchTab(1);
   }
 }

@@ -2,6 +2,30 @@
 <div class="container">
     <div class="card-container">
         <!-- Income Card -->
+
+        <div class="card">
+          <div class="card-header">
+            <span class="icon accounts-icon"><mat-icon>account_balance</mat-icon></span>
+            <h2>Accounts</h2>
+          </div>
+          <hr>
+          <div class="account-details">
+            <div class="account-item">
+              <h3>Savings Account</h3>
+              <p>{{ savingsAccountBalance | currency }}</p>
+            </div>
+            <div class="account-item">
+              <h3>Checking Account</h3>
+              <p>{{ checkingAccountBalance | currency }}</p>
+            </div>
+            <div class="account-item">
+              <h3>Investment Account</h3>
+              <p>{{ investmentAccountBalance | currency }}</p>
+            </div>
+          </div>
+          <button class="button" (click)="onAccount()">View</button>
+        </div>
+
         <div class="card">
             <div class="card-header">
                 <span class="icon income-icon"><mat-icon>attach_money</mat-icon></span>

@@ -31,6 +31,10 @@ export class DashboardComponent {
   //Total
   totalCurrentMonthIncome = 2000;
   totalCurrentMonthExpense = 1500;
+  savingsAccountBalance = 5000;
+  checkingAccountBalance = 3000;
+  investmentAccountBalance = 10000;
+
   constructor(public router: Router) { }
 
   onIncome() {
@@ -42,7 +46,9 @@ export class DashboardComponent {
   onTodo() {
     this.router.navigate(['/budget-planner/todo']);
   }
-  
+  onAccount() {
+    this.router.navigate(['/budget-planner/accounts']);
+  }
   //Calculate Total
   get currentMonthSavings(): number {
     return this.totalCurrentMonthIncome - this.totalCurrentMonthExpense;

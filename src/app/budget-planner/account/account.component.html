@@ -1,0 +1,94 @@
+<mat-card>
+  <mat-card-title>Account Management</mat-card-title>
+  <mat-tab-group [(selectedIndex)]="currentTab">
+    <mat-tab label="Add Account">
+      <form [formGroup]="accountForm" (ngSubmit)="onSubmit()" class="account-form">
+        <!-- Form Fields for Adding Account -->
+        <mat-form-field appearance="fill">
+          <mat-label>Account Name</mat-label>
+          <input matInput formControlName="accountName" placeholder="Enter Account Name">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Account Details</mat-label>
+          <input matInput [type]="showDetails ? 'text' : 'password'" formControlName="accountDetails" placeholder="Enter Account Details">
+          <button mat-icon-button type="button" (click)="toggleShowDetails()">
+            <mat-icon>{{ showDetails ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Account Number Type</mat-label>
+          <mat-select formControlName="accountType">
+            <mat-option *ngFor="let type of accountTypes" [value]="type">{{ type }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Account Address</mat-label>
+          <input matInput formControlName="accountAddress" placeholder="Enter Account Address">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Initial Balance</mat-label>
+          <input matInput formControlName="initialBalance" placeholder="Enter Initial Balance">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Current Balance</mat-label>
+          <input matInput formControlName="currentBalance" placeholder="Enter Current Balance">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Notes</mat-label>
+          <textarea matInput formControlName="notes" placeholder="Enter Notes"></textarea>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Add Account</button>
+      </form>
+    </mat-tab>
+    
+    <mat-tab label="Account Transactions">
+      <app-reusable-table
+        [columns]="displayedColumns"
+        [data]="transformedAccountsList"
+        (edit)="onEdit($event)"
+        (delete)="onDelete($event)">
+      </app-reusable-table>
+    </mat-tab>
+
+    <mat-tab label="Edit Account">
+      <form [formGroup]="editForm" (ngSubmit)="onSaveEdit()" class="edit-form">
+        <!-- Form Fields for Editing Account -->
+        <mat-form-field appearance="fill">
+          <mat-label>Account Name</mat-label>
+          <input matInput formControlName="accountName" placeholder="Enter Account Name">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Account Details</mat-label>
+          <input matInput [type]="showDetails ? 'text' : 'password'" formControlName="accountDetails" placeholder="Enter Account Details">
+          <button mat-icon-button type="button" (click)="toggleShowDetails()">
+            <mat-icon>{{ showDetails ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Account Number Type</mat-label>
+          <mat-select formControlName="accountType">
+            <mat-option *ngFor="let type of accountTypes" [value]="type">{{ type }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Account Address</mat-label>
+          <input matInput formControlName="accountAddress" placeholder="Enter Account Address">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Initial Balance</mat-label>
+          <input matInput formControlName="initialBalance" placeholder="Enter Initial Balance">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Current Balance</mat-label>
+          <input matInput formControlName="currentBalance" placeholder="Enter Current Balance">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Notes</mat-label>
+          <textarea matInput formControlName="notes" placeholder="Enter Notes"></textarea>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Save</button>
+        <button mat-raised-button color="warn" (click)="cancelEdit()">Cancel</button>
+      </form>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>

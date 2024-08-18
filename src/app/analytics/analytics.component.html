@@ -1,0 +1,53 @@
+<mat-card>
+    <mat-card-title>Expense Analytics</mat-card-title>
+    <mat-card-content>
+      <p>Total Expense: {{ totalExpense | currency }}</p>
+      <p>Min Expense: {{ minExpense | currency }}</p>
+      <p>Max Expense: {{ maxExpense | currency }}</p>
+  
+      <div>
+        <h2>Expenses by Month</h2>
+        <div style="display: block;">
+          <canvas baseChart
+            [data]="expensesByMonth"
+            [options]="chartOptions"
+            [type]="'bar'">
+          </canvas>
+        </div>
+      </div>
+  
+      <div>
+        <h2>Expenses by Day</h2>
+        <div style="display: block;">
+          <canvas baseChart
+            [data]="expensesByDay"
+            [options]="chartOptions"
+            [type]="'line'">
+          </canvas>
+        </div>
+      </div>
+  
+      <div>
+        <h2>Expenses by Year</h2>
+        <div style="display: block;">
+          <canvas baseChart
+            [data]="expensesByYear"
+            [options]="chartOptions"
+            [type]="'pie'">
+          </canvas>
+        </div>
+      </div>
+  
+      <div>
+        <h2>Expenses by Type</h2>
+        <div style="display: block;">
+          <canvas baseChart
+            [data]="expensesByType"
+            [options]="chartOptions"
+            [type]="'doughnut'">
+          </canvas>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  

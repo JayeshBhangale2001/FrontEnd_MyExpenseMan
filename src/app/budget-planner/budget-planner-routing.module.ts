@@ -8,6 +8,7 @@ import { ExpenseComponent } from './expense/expense.component';
 import { TodoComponent } from './todo/todo.component';
 import { HistoryComponent } from './history/history.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AccountComponent } from './account/account.component';
 
 const routes: Routes = [
   {path:'login',component:LoginComponent},
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path:'expense',component:ExpenseComponent},
   {path:'todo',component:TodoComponent},
   {path:'history',component:HistoryComponent},
-  {path:'profile',component:ProfileComponent}
+  {path:'profile',component:ProfileComponent},
+  { path: 'accounts', component: AccountComponent }
 ];
 
 @NgModule({
