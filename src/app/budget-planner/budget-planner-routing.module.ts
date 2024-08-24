@@ -9,6 +9,7 @@ import { TodoComponent } from './todo/todo.component';
 import { HistoryComponent } from './history/history.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AccountComponent } from './account/account.component';
+import { UserDefinedListsComponent } from './user-defined-list/user-defined-list.component';  // Correct import path
 
 const routes: Routes = [
   {path:'login',component:LoginComponent},
@@ -19,7 +20,9 @@ const routes: Routes = [
   {path:'todo',component:TodoComponent},
   {path:'history',component:HistoryComponent},
   {path:'profile',component:ProfileComponent},
-  { path: 'accounts', component: AccountComponent }
+  { path: 'accounts', component: AccountComponent },
+  { path: 'user-defined-list', component: UserDefinedListsComponent }
+
 ];
 
 @NgModule({

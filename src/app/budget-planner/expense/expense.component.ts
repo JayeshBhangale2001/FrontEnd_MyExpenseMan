@@ -1,3 +1,4 @@
+import { NgxMatDatetimePickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -8,13 +9,14 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select'; // Import MatSelectModule
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatSelectModule } from '@angular/material/select'; // Import MatSelectModule
+import { AccountService } from '../../account.service'; // Import AccountService
 import { ExpenseService } from '../../expense.service';
-import { Expense } from '../../models/expense.model';
+import { Account } from '../../models/account.model'; // Import Account model
+import { Expense, PartialExpense } from '../../models/expense.model';
 import { ReusableTableComponent } from '../../reusable-table/reusable-table.component';
-import { NgxMatDatetimePickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 @Component({
   selector: 'app-expense',
   standalone: true,
@@ -41,10 +43,7 @@ import { NgxMatDatetimePickerModule, NgxMatNativeDateModule } from '@angular-mat
   providers: [DatePipe]
 })
 export class ExpenseComponent implements OnInit {
-  months: string[] = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
+  accounts: Account[] = []; 
   dateOptions = [
     { label: 'Today', value: 'today' },
     { label: 'Tomorrow', value: 'tomorrow' },
@@ -56,32 +55,48 @@ export class ExpenseComponent implements OnInit {
   editForm!: FormGroup;
   currentTab: number = 0;
   editingExpense: Expense | null = null;
-  expensesList: Expense[] = [];
+  expensesList: PartialExpense[] = [];
+  displayedColumns: string[] = ['Account Name', 'Expense Type', 'Expense Amount', 'Expense Date'];
+  transformedAccountsList: any[] = [];
 
   constructor(
     private fb: FormBuilder,
     private expenseService: ExpenseService,
+    private accountService: AccountService,
     private datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
+    this.loadAccounts(); 
     const now = new Date();
     this.expenseForm = this.fb.group({
-      month: [this.months[now.getMonth()], Validators.required],
+      account: [null, Validators.required], 
       expenseType: ['', Validators.required],
       expenseAmount: ['', Validators.required],
-      expenseDate: ['', Validators.required]
+      expenseDate: [now, Validators.required] // Use Date object
     });
 
     this.editForm = this.fb.group({
       id: [''],
-      month: [this.months[now.getMonth()], Validators.required],
+      account: [null, Validators.required], // Ensure account control is correctly initialized
       expenseType: ['', Validators.required],
       expenseAmount: ['', Validators.required],
-      expenseDate: ['', Validators.required]
+      expenseDate: [new Date(), Validators.required] // Ensure the date control is initialized correctly
     });
+    
 
     this.fetchExpenses();
+  }
+
+  loadAccounts(): void {
+    this.accountService.getAccounts().subscribe(
+      (accounts: Account[]) => {
+        this.accounts = accounts;
+      },
+      (error) => {
+        console.error('Error Fetching Accounts:', error);
+      }
+    );
   }
 
   onDateOptionChange(option: string) {
@@ -117,25 +132,72 @@ export class ExpenseComponent implements OnInit {
     }
   }
 
+  // columnMap = {
+  //   'Account Name': 'account.accountName',
+  //   'Expense Type': 'expenseType',
+  //   'Expense Amount': 'expenseAmount',
+  //   'Expense Date': 'expenseDate'
+  // };
+
+  // displayedColumns = Object.keys(this.columnMap); 
+
   fetchExpenses() {
     this.expenseService.getExpenses().subscribe(
       (expenses: Expense[]) => {
+        console.log('Raw expenses from backend:', expenses);
+  
         this.expensesList = expenses.map(expense => ({
           ...expense,
           expenseDate: this.datePipe.transform(expense.expenseDate, 'short') || ''
         }));
+        console.log('Mapped expenses for frontend:', this.expensesList);
+        this.transformedAccountsList = this.transformAccountsList(expenses);
+        console.log('Mapped transformedAccountsList for frontend:', this.transformedAccountsList);
       },
       (error) => {
         console.error('Error Fetching Expenses:', error);
       }
     );
   }
+  
 
+  // private transformAccountsList(expenses: Expense[]): any[] {
+  //   return expenses.map(expense => ({
+  //     'Account Name': expense.account ? expense.account.accountName : 'N/A', // Handle null account
+  //   'Expense Type': expense.expenseType,
+  //   'Expense Amount': expense.expenseAmount,
+  //   'Expense Date': expense.expenseDate
+  //   }));
+  // }
+
+
+  private transformAccountsList(expenses: Expense[]): any[] {
+    return expenses.map(expense => ({
+      'id': expense.id,
+      'Account Name': expense.account ? expense.account.accountName : 'N/A',
+      'Expense Type': expense.expenseType,
+      'Expense Amount': expense.expenseAmount,
+      'Expense Date': expense.expenseDate ? this.datePipe.transform(expense.expenseDate, 'short') : ''
+    }));
+  }
+  
   onSubmit() {
     if (this.expenseForm.valid) {
-      const newExpense: Expense = this.expenseForm.value;
+      const formValues = this.expenseForm.value;
+
+      const newExpense: PartialExpense = {
+        accountId: formValues.account.id,
+        expenseType: formValues.expenseType,
+        expenseAmount: formValues.expenseAmount,
+        expenseDate: new Date(formValues.expenseDate).toISOString() 
+      };
+
+      console.log('Data being sent to the backend:', newExpense);
+
       this.expenseService.saveExpense(newExpense).subscribe(
         (savedExpense) => {
+          console.log('Saved expense response:', savedExpense);
+
           this.expensesList.push({
             ...savedExpense,
             expenseDate: this.datePipe.transform(savedExpense.expenseDate, 'short') || ''
@@ -147,17 +209,60 @@ export class ExpenseComponent implements OnInit {
           console.error('Error Saving Expense:', error);
         }
       );
+    } else {
+      console.log('Form is invalid:', this.expenseForm.errors);
     }
   }
 
-  onEdit(expense: Expense) {
-    this.editingExpense = { ...expense };
+  onEdit(expense: any): void {
+    console.log('Incoming expense object:', expense);
+  
+    if (this.accounts.length === 0) {
+      console.error('Accounts list is empty. onEdit called too early?');
+      return;
+    }
+  
+    const account = this.accounts.find(acc => acc.accountName === expense['Account Name']) || null;
+    console.log('Found account object:', account);
+  
+    const expenseDate = new Date(expense['Expense Date']);
+    if (isNaN(expenseDate.getTime())) {
+      console.error('Expense date is invalid:', expense['Expense Date']);
+    } else {
+      console.log('Converted expenseDate:', expenseDate);
+    }
+  
+    console.log('Edit form before patching:', this.editForm.value);
+  
     this.editForm.patchValue({
-      ...this.editingExpense,
-      expenseDate: new Date(this.editingExpense.expenseDate)
+      id: expense.id,
+      account: account,
+      expenseType: expense['Expense Type'],
+      expenseAmount: expense['Expense Amount'],
+      expenseDate: expenseDate // Use the correctly parsed Date object
     });
+  
+    console.log('Edit form after patching:', this.editForm.value);
+  
+    this.editingExpense = {
+      id: expense.id,
+      account: account,
+      expenseType: expense['Expense Type'],
+      expenseAmount: expense['Expense Amount'],
+      expenseDate: expenseDate
+    } as Expense;
+  
+    console.log('Stored editingExpense:', this.editingExpense);
+  
     this.switchTab(2);
+    console.log('Switched to Edit Expense tab.');
   }
+  
+  
+  
+
+  
+  
 
   onSaveEdit() {
     if (this.editForm.valid) {
@@ -172,6 +277,7 @@ export class ExpenseComponent implements OnInit {
             };
           }
           this.editingExpense = null;
+          this.editForm.reset();
           this.switchTab(1);
         },
         (error) => {

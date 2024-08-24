@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Expense } from './models/expense.model';
+import { Expense , PartialExpense} from './models/expense.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class ExpenseService {
     return this.http.get<Expense[]>(this.apiUrl, { headers: this.getAuthHeaders() });
   }
 
-  saveExpense(expense: Expense): Observable<Expense> {
+  saveExpense(expense: PartialExpense): Observable<Expense> {
     return this.http.post<Expense>(this.apiUrl, expense, { headers: this.getAuthHeaders() });
   }
 

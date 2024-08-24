@@ -109,6 +109,7 @@ export class AccountComponent implements OnInit {
 
   private transformAccountsList(accounts: Account[]): any[] {
     return accounts.map(account => ({
+      'id': account.id,
       'Account Name': account.accountName,
       'Account Type': account.accountType,
       'Account Address': account.accountAddress,
@@ -183,6 +184,7 @@ export class AccountComponent implements OnInit {
   }
 
   onDelete(accountId: number): void {
+    console.log('Deleting Account with ID:', accountId); // Add this line
     this.accountService.deleteAccount(accountId).subscribe(
       () => {
         this.accountsList = this.accountsList.filter(account => account.id !== accountId);
@@ -191,6 +193,7 @@ export class AccountComponent implements OnInit {
       (error) => console.error('Error Deleting Account:', error)
     );
   }
+  
 
   cancelEdit(): void {
     this.editingAccount = null;
