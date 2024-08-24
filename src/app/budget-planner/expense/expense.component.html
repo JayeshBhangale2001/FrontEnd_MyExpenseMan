@@ -4,9 +4,9 @@
     <mat-tab label="Add Expense">
       <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()" class="expense-form">
         <mat-form-field appearance="fill">
-          <mat-label>Month</mat-label>
-          <mat-select formControlName="month">
-            <mat-option *ngFor="let month of months" [value]="month">{{ month }}</mat-option>
+          <mat-label>Select Account</mat-label>
+          <mat-select formControlName="account"> <!-- Updated to Select Account -->
+            <mat-option *ngFor="let account of accounts" [value]="account">{{ account.accountName }}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="fill">
@@ -33,8 +33,8 @@
     </mat-tab>
     <mat-tab label="Expense Transactions">
       <app-reusable-table
-        [columns]="['month', 'expenseType', 'expenseAmount', 'expenseDate']"
-        [data]="expensesList"
+        [columns]="displayedColumns" 
+        [data]="transformedAccountsList"
         (edit)="onEdit($event)"
         (delete)="onDelete($event.id)">
       </app-reusable-table>
@@ -42,9 +42,9 @@
     <mat-tab label="Edit Expense">
       <form [formGroup]="editForm" (ngSubmit)="onSaveEdit()" class="edit-form">
         <mat-form-field appearance="fill">
-          <mat-label>Month</mat-label>
-          <mat-select formControlName="month">
-            <mat-option *ngFor="let month of months" [value]="month">{{ month }}</mat-option>
+          <mat-label>Select Account</mat-label>
+          <mat-select formControlName="account"> <!-- Updated to Select Account -->
+            <mat-option *ngFor="let account of accounts" [value]="account">{{ account.accountName }}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="fill">
@@ -57,9 +57,9 @@
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Date & Time</mat-label>
-          <input matInput [ngxMatDatetimePicker]="picker" formControlName="expenseDate" placeholder="Select Date & Time">
-          <ngx-mat-datepicker-toggle matSuffix [for]="picker"></ngx-mat-datepicker-toggle>
-          <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
+          <input matInput [ngxMatDatetimePicker]="pickerEdit" formControlName="expenseDate" placeholder="Select Date & Time">
+          <ngx-mat-datepicker-toggle matSuffix [for]="pickerEdit"></ngx-mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #pickerEdit></ngx-mat-datetime-picker>
         </mat-form-field>
         <button mat-raised-button color="primary" type="submit">Save</button>
         <button mat-raised-button color="warn" (click)="cancelEdit()">Cancel</button>

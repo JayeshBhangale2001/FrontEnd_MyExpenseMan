@@ -46,7 +46,7 @@
         [columns]="displayedColumns"
         [data]="transformedAccountsList"
         (edit)="onEdit($event)"
-        (delete)="onDelete($event)">
+        (delete)="onDelete($event.id)">
       </app-reusable-table>
     </mat-tab>
 

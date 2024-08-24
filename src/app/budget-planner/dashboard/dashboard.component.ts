@@ -49,6 +49,10 @@ export class DashboardComponent {
   onAccount() {
     this.router.navigate(['/budget-planner/accounts']);
   }
+
+  onUserDefinedList() {
+    this.router.navigate(['/budget-planner/user-defined-list']);
+  }
   //Calculate Total
   get currentMonthSavings(): number {
     return this.totalCurrentMonthIncome - this.totalCurrentMonthExpense;
