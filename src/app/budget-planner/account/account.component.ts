@@ -14,7 +14,6 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
 import { ReusableTableComponent } from '../../reusable-table/reusable-table.component';
-import { NgxMatDatetimePickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 import { MatIconModule } from '@angular/material/icon'; // Import MatIconModule
 
 @Component({
@@ -33,8 +32,6 @@ import { MatIconModule } from '@angular/material/icon'; // Import MatIconModule
     ReusableTableComponent,
     MatDatepickerModule,
     MatNativeDateModule,
-    NgxMatDatetimePickerModule,
-    NgxMatNativeDateModule,
     MatSelectModule ,
     MatIconModule
   ],
