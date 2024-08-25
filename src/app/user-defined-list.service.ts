@@ -1,6 +1,7 @@
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 export interface UserDefinedListItem {
   id?: number;
@@ -14,11 +15,17 @@ export interface UserDefinedListItem {
 export class UserDefinedListService {
   private apiUrl = 'http://localhost:8080/api/user-defined-lists'; // Adjust the API endpoint as needed
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('authToken');
-    return token ? new HttpHeaders({ 'Authorization': `Bearer ${token}` }) : new HttpHeaders();
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      return token ? new HttpHeaders({ 'Authorization': `Bearer ${token}` }) : new HttpHeaders();
+    }
+    return new HttpHeaders(); // Return empty headers if not in browser
   }
 
   getItems(listType: string): Observable<UserDefinedListItem[]> {
