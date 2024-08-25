@@ -8,7 +8,7 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root'
 })
 export class IncomeService {
-  private apiUrl = 'http://localhost:8080/api/income'; // Update with your backend URL
+  private apiUrl = 'http://backendbudgetplanner-production.up.railway.app/api/income'; // Update with your backend URL
 
   constructor(
     private http: HttpClient,

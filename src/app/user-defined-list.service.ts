@@ -13,7 +13,7 @@ export interface UserDefinedListItem {
   providedIn: 'root'
 })
 export class UserDefinedListService {
-  private apiUrl = 'http://localhost:8080/api/user-defined-lists'; // Adjust the API endpoint as needed
+  private apiUrl = 'http://backendbudgetplanner-production.up.railway.app/api/user-defined-lists'; // Adjust the API endpoint as needed
 
   constructor(
     private http: HttpClient,

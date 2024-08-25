@@ -7,7 +7,7 @@ import { UserProfile } from '../models/user-profile.model';
   providedIn: 'root',
 })
 export class UserProfileService {
-  private apiUrl = 'http://localhost:8080/api/user-profiles'; // Backend URL
+  private apiUrl = 'http://backendbudgetplanner-production.up.railway.app/api/user-profiles'; // Backend URL
   private authToken: string | null = null;
 
   constructor(private http: HttpClient) {}
