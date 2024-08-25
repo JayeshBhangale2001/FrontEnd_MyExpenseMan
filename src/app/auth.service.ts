@@ -1,7 +1,7 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Observable, tap } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +22,12 @@ export class AuthService {
     ).pipe(
       tap(response => {
         const token = response.token;
-        console.log('Token from response:', token); // Debug log
-
+        
+        // Token handling is only performed in the browser environment
         if (isPlatformBrowser(this.platformId) && token) {
           this.setToken(token);
-        } else {
-          console.error('Token is empty or running on the server!');
+        } else if (!isPlatformBrowser(this.platformId)) {
+          console.warn('Token setting skipped as it is not running in the browser environment.');
         }
       })
     );
@@ -36,7 +36,9 @@ export class AuthService {
   register(user: { username: string, email: string, password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/signup`, user, { withCredentials: true });
   }
+
   getToken(): string | null {
+    // Check platform and retrieve token if in browser
     if (isPlatformBrowser(this.platformId)) {
       return localStorage.getItem(this.tokenKey);
     }
@@ -44,12 +46,14 @@ export class AuthService {
   }
 
   setToken(token: string): void {
+    // Set token only if in browser environment
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem(this.tokenKey, token);
     }
   }
 
   clearToken(): void {
+    // Remove token only if in browser environment
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem(this.tokenKey);
     }
