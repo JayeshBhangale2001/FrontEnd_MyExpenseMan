@@ -9,20 +9,20 @@ import { TodoComponent } from './todo/todo.component';
 import { HistoryComponent } from './history/history.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AccountComponent } from './account/account.component';
-import { UserDefinedListsComponent } from './user-defined-list/user-defined-list.component';  // Correct import path
+import { UserDefinedListsComponent } from './user-defined-list/user-defined-list.component';
 
 const routes: Routes = [
-  {path:'login',component:LoginComponent},
-  {path:'side-nav',component:SideNavComponent},
-  {path:'dashboard',component:DashboardComponent},
-  {path:'income',component:IncomeComponent},
-  {path:'expense',component:ExpenseComponent},
-  {path:'todo',component:TodoComponent},
-  {path:'history',component:HistoryComponent},
-  {path:'profile',component:ProfileComponent},
+  { path: 'login', component: LoginComponent },
+  { path: 'side-nav', component: SideNavComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'income', component: IncomeComponent },
+  { path: 'expense', component: ExpenseComponent },
+  { path: 'todo', component: TodoComponent },
+  { path: 'history', component: HistoryComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: 'accounts', component: AccountComponent },
-  { path: 'user-defined-list', component: UserDefinedListsComponent }
-
+  { path: 'user-defined-list', component: UserDefinedListsComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' } // Default route
 ];
 
 @NgModule({
