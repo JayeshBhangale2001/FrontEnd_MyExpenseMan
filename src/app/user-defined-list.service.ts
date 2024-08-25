@@ -21,11 +21,19 @@ export class UserDefinedListService {
   ) {}
 
   private getAuthHeaders(): HttpHeaders {
+    let headers = new HttpHeaders();
+
+    // Check if we are in the browser environment
     if (isPlatformBrowser(this.platformId)) {
+      // Try to get the token from localStorage
       const token = localStorage.getItem('authToken');
-      return token ? new HttpHeaders({ 'Authorization': `Bearer ${token}` }) : new HttpHeaders();
+      if (token) {
+        // If token exists, add it to the headers
+        headers = headers.append('Authorization', `Bearer ${token}`);
+      }
     }
-    return new HttpHeaders(); // Return empty headers if not in browser
+
+    return headers;
   }
 
   getItems(listType: string): Observable<UserDefinedListItem[]> {

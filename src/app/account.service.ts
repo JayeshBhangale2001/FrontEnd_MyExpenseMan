@@ -16,11 +16,16 @@ export class AccountService {
   ) {}
 
   private getAuthHeaders(): HttpHeaders {
+    let headers = new HttpHeaders();
+
     if (isPlatformBrowser(this.platformId)) {
       const token = localStorage.getItem('authToken');
-      return token ? new HttpHeaders({ 'Authorization': `Bearer ${token}` }) : new HttpHeaders();
+      if (token) {
+        headers = headers.set('Authorization', `Bearer ${token}`);
+      }
     }
-    return new HttpHeaders(); // Return empty headers if not in browser
+
+    return headers;
   }
 
   getAccounts(): Observable<Account[]> {
