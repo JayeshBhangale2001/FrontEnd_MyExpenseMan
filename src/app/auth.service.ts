@@ -7,7 +7,7 @@ import { Observable, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://backendbudgetplanner-production.up.railway.app/api/auth';   //backendbudgetplanner-production.up.railway.app
+  private apiUrl = 'https://backendbudgetplanner-production.up.railway.app/api/auth';   //backendbudgetplanner-production.up.railway.app
   private tokenKey = 'authToken';
 
   constructor(
