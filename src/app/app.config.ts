@@ -1,4 +1,3 @@
-import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -41,8 +40,6 @@ export const appConfig: ApplicationConfig = {
       MatDatepickerModule,
       MatNativeDateModule,
       MatIconModule,
-      NgxMatDatetimePickerModule,
-      NgxMatTimepickerModule,
       NgxMaterialTimepickerModule
     //  CustomDatetimePickerComponent
     )

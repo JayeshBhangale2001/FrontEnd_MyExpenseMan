@@ -5,7 +5,7 @@
       <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()" class="expense-form">
         <mat-form-field appearance="fill">
           <mat-label>Select Account</mat-label>
-          <mat-select formControlName="account"> <!-- Updated to Select Account -->
+          <mat-select formControlName="account">
             <mat-option *ngFor="let account of accounts" [value]="account">{{ account.accountName }}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -13,8 +13,8 @@
           <mat-label>Expense Type</mat-label>
           <mat-select formControlName="expenseType" placeholder="Select Expense Type">
             <mat-option *ngFor="let type of expenseTypes" [value]="type.itemName">
-            {{ type.itemName }}
-          </mat-option>
+              {{ type.itemName }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="fill">
@@ -22,15 +22,15 @@
           <input matInput formControlName="expenseAmount" placeholder="Enter Expense Amount">
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Date & Time</mat-label>
+          <mat-label>Date</mat-label>
           <mat-select (selectionChange)="onDateOptionChange($event.value)">
             <mat-option *ngFor="let option of dateOptions" [value]="option.value">
               {{ option.label }}
             </mat-option>
           </mat-select>
-          <input matInput [ngxMatDatetimePicker]="picker" formControlName="expenseDate" placeholder="Select Date & Time">
-          <ngx-mat-datepicker-toggle matSuffix [for]="picker"></ngx-mat-datepicker-toggle>
-          <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
+          <input matInput [matDatepicker]="picker" formControlName="expenseDate" placeholder="Select Date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <button mat-raised-button color="primary" type="submit">Add Expense</button>
       </form>
@@ -47,7 +47,7 @@
       <form [formGroup]="editForm" (ngSubmit)="onSaveEdit()" class="edit-form">
         <mat-form-field appearance="fill">
           <mat-label>Select Account</mat-label>
-          <mat-select formControlName="account"> <!-- Updated to Select Account -->
+          <mat-select formControlName="account">
             <mat-option *ngFor="let account of accounts" [value]="account">{{ account.accountName }}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -55,8 +55,8 @@
           <mat-label>Expense Type</mat-label>
           <mat-select formControlName="expenseType" placeholder="Select Expense Type">
             <mat-option *ngFor="let type of expenseTypes" [value]="type.itemName">
-            {{ type.itemName }}
-          </mat-option>
+              {{ type.itemName }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="fill">
@@ -64,10 +64,10 @@
           <input matInput formControlName="expenseAmount" placeholder="Enter Expense Amount">
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Date & Time</mat-label>
-          <input matInput [ngxMatDatetimePicker]="pickerEdit" formControlName="expenseDate" placeholder="Select Date & Time">
-          <ngx-mat-datepicker-toggle matSuffix [for]="pickerEdit"></ngx-mat-datepicker-toggle>
-          <ngx-mat-datetime-picker #pickerEdit></ngx-mat-datetime-picker>
+          <mat-label>Date</mat-label>
+          <input matInput [matDatepicker]="pickerEdit" formControlName="expenseDate" placeholder="Select Date">
+          <mat-datepicker-toggle matSuffix [for]="pickerEdit"></mat-datepicker-toggle>
+          <mat-datepicker #pickerEdit></mat-datepicker>
         </mat-form-field>
         <button mat-raised-button color="primary" type="submit">Save</button>
         <button mat-raised-button color="warn" (click)="cancelEdit()">Cancel</button>

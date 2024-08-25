@@ -1,4 +1,4 @@
-import { NgxMatDatetimePickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
+
 import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -18,6 +18,7 @@ import { Account } from '../../models/account.model'; // Import Account model
 import { Expense, PartialExpense } from '../../models/expense.model';
 import { ReusableTableComponent } from '../../reusable-table/reusable-table.component';
 import { UserDefinedListService, UserDefinedListItem } from '../../user-defined-list.service';
+
 @Component({
   selector: 'app-expense',
   standalone: true,
@@ -34,8 +35,6 @@ import { UserDefinedListService, UserDefinedListItem } from '../../user-defined-
     ReusableTableComponent,
     MatDatepickerModule,
     MatNativeDateModule,
-    NgxMatDatetimePickerModule,
-    NgxMatNativeDateModule,
     MatSelectModule 
      
   ],
