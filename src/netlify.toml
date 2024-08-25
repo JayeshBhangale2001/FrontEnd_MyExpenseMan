@@ -1,0 +1,10 @@
+[build]
+  # The directory to publish is where the build artifacts are placed
+  publish = "dist/budget-planner"
+  command = "ng build --prod"
+
+[[redirects]]
+  # Redirect all routes to index.html for Angular routing
+  from = "/*"
+  to = "/index.html"
+  status = 200

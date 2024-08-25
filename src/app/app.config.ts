@@ -18,6 +18,7 @@ import { AuthInterceptor } from './auth.interceptor'; // Adjust the import path 
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 //import { CustomDatetimePickerComponent } from '../app/custom-datetime-picker/custom-datetime-picker.component'; 
 const routes: Routes = [
+  { path: '', redirectTo: 'budget-planner/login', pathMatch: 'full' }, // Redirect root to login
   { path: 'budget-planner', loadChildren: () => import('./budget-planner/budget-planner.module').then(m => m.BudgetPlannerModule) }
 ];
 
