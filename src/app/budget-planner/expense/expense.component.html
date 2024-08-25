@@ -11,7 +11,11 @@
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Expense Type</mat-label>
-          <input matInput formControlName="expenseType" placeholder="Enter Expense Type">
+          <mat-select formControlName="expenseType" placeholder="Select Expense Type">
+            <mat-option *ngFor="let type of expenseTypes" [value]="type.itemName">
+            {{ type.itemName }}
+          </mat-option>
+          </mat-select>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Expense Amount</mat-label>
@@ -49,7 +53,11 @@
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Expense Type</mat-label>
-          <input matInput formControlName="expenseType" placeholder="Enter Expense Type">
+          <mat-select formControlName="expenseType" placeholder="Select Expense Type">
+            <mat-option *ngFor="let type of expenseTypes" [value]="type.itemName">
+            {{ type.itemName }}
+          </mat-option>
+          </mat-select>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Expense Amount</mat-label>
