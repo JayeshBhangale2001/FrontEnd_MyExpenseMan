@@ -17,6 +17,7 @@ import { ExpenseService } from '../../expense.service';
 import { Account } from '../../models/account.model'; // Import Account model
 import { Expense, PartialExpense } from '../../models/expense.model';
 import { ReusableTableComponent } from '../../reusable-table/reusable-table.component';
+import { UserDefinedListService, UserDefinedListItem } from '../../user-defined-list.service';
 @Component({
   selector: 'app-expense',
   standalone: true,
@@ -44,6 +45,7 @@ import { ReusableTableComponent } from '../../reusable-table/reusable-table.comp
 })
 export class ExpenseComponent implements OnInit {
   accounts: Account[] = []; 
+  expenseTypes: UserDefinedListItem[] = []; 
   dateOptions = [
     { label: 'Today', value: 'today' },
     { label: 'Tomorrow', value: 'tomorrow' },
@@ -63,10 +65,12 @@ export class ExpenseComponent implements OnInit {
     private fb: FormBuilder,
     private expenseService: ExpenseService,
     private accountService: AccountService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private userDefinedListService: UserDefinedListService // Correctly inject the service
   ) {}
 
   ngOnInit(): void {
+    this.loadExpenseTypes();
     this.loadAccounts(); 
     const now = new Date();
     this.expenseForm = this.fb.group({
@@ -98,6 +102,13 @@ export class ExpenseComponent implements OnInit {
       }
     );
   }
+  
+  loadExpenseTypes() {
+    this.userDefinedListService.getItems('Expense Type').subscribe(data => {
+      this.expenseTypes = data;
+    });
+  }
+
 
   onDateOptionChange(option: string) {
     let date: Date;
