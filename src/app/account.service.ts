@@ -8,7 +8,7 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root'
 })
 export class AccountService {
-  private apiUrl = 'http://localhost:8080/api/accounts'; // Your backend API URL
+  private apiUrl = 'http://backendbudgetplanner-production.up.railway.app/api/accounts'; // Your backend API URL
 
   constructor(
     private http: HttpClient,
