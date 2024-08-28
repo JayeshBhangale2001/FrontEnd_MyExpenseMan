@@ -1,0 +1,57 @@
+<div class="container">
+    <div>
+        <h1>SIP Calculator</h1>
+    </div>
+    <div class="button-group">
+        <button [ngClass]="{'active': selectedOption === 'SIP', 'inactive': selectedOption !== 'SIP'}" (click)="switchToSIP()">SIP</button>
+        <button [ngClass]="{'active': selectedOption === 'Lumpsum', 'inactive': selectedOption !== 'Lumpsum'}" (click)="switchToLumpsum()">Lumpsum</button>
+    </div>
+
+    <div class="input-group">
+        <label for="investment">{{ selectedOption === 'SIP' ? 'Monthly Investment' : 'Lumpsum Amount' }}: </label>
+        <input type="number" [(ngModel)]="investmentAmount" id="investment" (ngModelChange)="onInputChange()">
+    </div>
+
+    <div class="input-group">
+        <label for="returnRate">Expected Rate of Return (%): </label>
+        <input type="number" [(ngModel)]="returnRate" id="returnRate" (ngModelChange)="onInputChange()">
+    </div>
+
+    <div class="input-group">
+        <label for="timePeriod">Time Period (in years): </label>
+        <input type="number" [(ngModel)]="timePeriod" id="timePeriod" (ngModelChange)="onInputChange()">
+    </div>
+
+    
+
+    <div class="results">
+        <p>Invested amount: ₹{{ investedAmount | number:'1.0-0' }}</p>
+        <p>Est. returns: ₹{{ estimatedReturns | number:'1.0-0' }}</p>
+        <p>Maturity amount: ₹{{ totalValue | number:'1.0-0' }}</p>
+    </div>
+
+    <div class="doughnut-chart-container">
+        <canvas id="sipChart"></canvas>
+    </div>
+
+    <div class="breakdown-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>Invested Amount</th>
+                    <th>Estimated Returns</th>
+                    <th>Maturity Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of breakdown; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>₹{{ item.investedAmount | number:'1.0-0' }}</td>
+                    <td>₹{{ item.estimatedReturns | number:'1.0-0' }}</td>
+                    <td>₹{{ item.maturityValue | number:'1.0-0' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

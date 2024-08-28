@@ -53,6 +53,10 @@ export class DashboardComponent {
   onUserDefinedList() {
     this.router.navigate(['/budget-planner/user-defined-list']);
   }
+
+  onInvestment() {
+    this.router.navigate(['/budget-planner/investment']); // Corrected path
+  }
   //Calculate Total
   get currentMonthSavings(): number {
     return this.totalCurrentMonthIncome - this.totalCurrentMonthExpense;

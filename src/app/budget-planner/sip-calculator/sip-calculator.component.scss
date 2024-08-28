@@ -1,0 +1,82 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 80%; /* Adjust container width as needed */
+    margin: 0 auto;
+  }
+  
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    width: 300px; /* Set consistent width */
+  }
+  
+  .input-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .input-group input {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .button-group button {
+    width: 150px; /* Set consistent width for buttons */
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #5C6BC0;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button-group button.active {
+    background-color: #3F51B5; /* Selected button color */
+  }
+  
+  .button-group button.inactive {
+    background-color: gray; /* Unselected button color */
+  }
+  
+  .results {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .doughnut-chart-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    max-width: 70%; /* Reduce the size of the chart */
+  }
+  
+  .breakdown-table {
+    margin-top: 20px;
+    max-width: 70%; /* Reduce the size of the table */
+  }
+  
+  .breakdown-table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .breakdown-table th, .breakdown-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: right;
+  }
+  
