@@ -12,6 +12,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { TodoComponent } from './todo/todo.component';
 import { UserDefinedListsComponent } from './user-defined-list/user-defined-list.component';
+import { BudgetComponent } from './budget/budget.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'side-nav', component: SideNavComponent },
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'user-defined-list', component: UserDefinedListsComponent },
   { path: 'sip-calculator', component: SipCalculatorComponent },  // Changed path to lowercase
   { path: 'investment', component: InvestmentComponent },  
+  { path: 'budget', component: BudgetComponent },  
   { path: '', redirectTo: 'login', pathMatch: 'full' } // Default route
 ];
 

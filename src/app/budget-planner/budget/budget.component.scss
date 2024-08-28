@@ -1,0 +1,165 @@
+/* Budget List View */
+.budget-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 20px;
+  }
+  
+  .budget-card {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 16px;
+    width: 100%;
+    max-width: 300px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .budget-card:hover {
+    transform: translateY(-4px);
+  }
+  
+  .budget-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .budget-title h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #343a40;
+  }
+  
+  .budget-title p {
+    margin: 0;
+    font-size: 1rem;
+    color: #6c757d;
+  }
+  
+  .budget-progress {
+    background-color: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+    height: 8px;
+    margin-top: 12px;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    background-color: #28a745;
+    transition: width 0.3s ease;
+  }
+  
+  .over-budget {
+    background-color: #dc3545 !important;
+  }
+  
+  .budget-status {
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: #495057;
+  }
+  
+  /* Budget Detail View */
+  .budget-detail {
+    margin-top: 20px;
+    padding: 16px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .budget-detail h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #343a40;
+  }
+  
+  .budget-detail p {
+    font-size: 1rem;
+    color: #495057;
+    margin: 8px 0;
+  }
+  
+  /* Create/Edit Budget Form */
+  .budget-form {
+    margin-top: 20px;
+    padding: 16px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .budget-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .budget-form label {
+    font-size: 0.9rem;
+    color: #495057;
+    margin-bottom: 4px;
+    margin-right: 20px ;
+  }
+  
+  .budget-form input[type="text"],
+  .budget-form input[type="number"],
+  .budget-form select {
+    padding: 8px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    background-color: #f8f9fa;
+    color: #495057;
+  }
+  
+  .budget-form button[type="submit"] {
+    padding: 10px 15px;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .budget-form button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+
+  /* Pencil Icon for Editing */
+.edit-icon {
+    font-size: 1.2rem;
+    color: #007bff;
+    cursor: pointer;
+    margin-left: 8px;
+    transition: color 0.3s ease;
+  }
+  
+  .edit-icon:hover {
+    color: #0056b3;
+  }
+  
+  /* New Budget Button */
+  .new-budget-button {
+    margin-top: 20px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .new-budget-button:hover {
+    background-color: #218838;
+  }
+  
