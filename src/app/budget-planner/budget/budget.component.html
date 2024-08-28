@@ -1,0 +1,57 @@
+<!-- Budget List View -->
+<div>
+    <h1>Budget</h1>
+</div>
+<div class="budget-list">
+  
+    <div class="budget-card" *ngFor="let budget of budgets" (click)="selectBudget(budget)">
+      <div class="budget-title">
+        <h3>{{ budget.name }}</h3>
+        <p>{{ budget.amount }} {{ budget.currency }}</p>
+        <!-- Pencil Icon for Editing -->
+        <mat-icon class="edit-icon" (click)="editBudget($event, budget)">edit</mat-icon>
+      </div>
+      <div class="budget-progress">
+        <div 
+          class="progress-bar" 
+          [style.width.%]="getProgress(budget)"
+          [class.over-budget]="isOverBudget(budget)">
+        </div>
+      </div>
+      <div class="budget-status">
+        <span>{{ getRemainingAmount(budget) }} {{ budget.currency }} remaining</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- New Budget Button -->
+  <button class="new-budget-button" (click)="createNewBudget()">New Budget</button>
+  
+  <!-- Budget Detail/Edit View -->
+  <div *ngIf="isCreatingNewBudget || selectedBudget" class="budget-form">
+    <h2>{{ isCreatingNewBudget ? 'Create New Budget' : 'Edit Budget' }}</h2>
+    <form (ngSubmit)="saveBudget()">
+      <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" [(ngModel)]="budgetForm.name" name="name" required />
+      </div>
+      <div>
+        <label for="amount">Amount</label>
+        <input type="number" id="amount" [(ngModel)]="budgetForm.amount" name="amount" required />
+      </div>
+      <div>
+        <label for="currency">Currency</label>
+        <select id="currency" [(ngModel)]="budgetForm.currency" name="currency">
+          <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+        </select>
+      </div>
+      <div>
+        <label for="period">Period</label>
+        <select id="period" [(ngModel)]="budgetForm.period" name="period">
+          <option *ngFor="let period of periods" [value]="period">{{ period }}</option>
+        </select>
+      </div>
+      <button type="submit">{{ isCreatingNewBudget ? 'Create Budget' : 'Save Budget' }}</button>
+    </form>
+  </div>
+  
