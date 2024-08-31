@@ -1,0 +1,19 @@
+<div class="nature-of-spending">
+  <h3>The Nature of Spending</h3>
+  <div class="amount">₹{{ data.totalAmount }}</div>
+  <div class="chart">
+    <canvas baseChart
+            [data]="processedPieChartData"
+            [options]="pieChartOptions"
+            chartType="pie">
+    </canvas>
+  </div>
+  <div class="top-categories">
+    <h4>Top Categories</h4>
+    <ul>
+      <li *ngFor="let category of data.topCategories">
+        {{ category.label }} - ₹{{ category.amount }}
+      </li>
+    </ul>
+  </div>
+</div>

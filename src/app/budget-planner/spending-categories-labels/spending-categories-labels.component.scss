@@ -1,0 +1,73 @@
+.spending-categories-labels {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.spending-categories-labels .amount {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.spending-categories-labels .chart,
+.spending-categories-labels .trend {
+  margin: 20px auto;
+  width: 100%; /* Ensure the chart takes full width available */
+  max-width: 600px; /* Maximum width for larger screens */
+}
+
+.spending-categories-labels .chart {
+  /* Specific styles for the pie chart */
+  height: 300px; /* Adjust height as needed */
+}
+
+.spending-categories-labels .trend {
+  /* Specific styles for the bar chart */
+  height: 400px; /* Adjust height as needed */
+}
+
+.spending-categories-labels .top-expenses {
+  margin-top: 20px;
+}
+
+.spending-categories-labels .top-expenses ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.spending-categories-labels .top-expenses li {
+  margin: 10px 0;
+  font-size: 18px; /* Adjust font size for better readability */
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.spending-categories-labels .top-expenses li .expense-type {
+  font-weight: bold;
+}
+
+.spending-categories-labels .top-expenses li .expense-amount {
+  color: #ff5722; /* Customize the color of the amount */
+  font-weight: bold;
+}
+
+.spending-categories-labels .top-expenses li .expense-date {
+  font-size: 14px;
+  color: #777;
+}
+
+
+.top-expenses-title {
+  text-align: center; /* Center the text horizontally */
+  margin: 20px 0; /* Add some margin above and below */
+  font-size: 24px; /* Adjust the font size */
+  font-weight: bold; /* Make the font bold */
+  color: #333; /* Set the text color */
+}

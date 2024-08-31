@@ -61,6 +61,10 @@ export class DashboardComponent {
   onBudget() {
     this.router.navigate(['/budget-planner/budget']); // Corrected path
   }
+
+  onStatisticsClick() {
+    this.router.navigate(['/budget-planner/spending-statistics']); // Corrected path
+  }
   //Calculate Total
   get currentMonthSavings(): number {
     return this.totalCurrentMonthIncome - this.totalCurrentMonthExpense;

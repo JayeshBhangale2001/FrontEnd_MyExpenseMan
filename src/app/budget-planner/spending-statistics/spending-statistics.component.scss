@@ -1,0 +1,58 @@
+.container {
+  position: relative; /* Ensure container is relative to position children correctly */
+  min-height: 100vh; /* Ensure container takes at least the full height of the viewport */
+}
+
+.scrollable-content {
+  padding-bottom: 60px; /* Give space at the bottom for the sticky timeline */
+}
+
+.sticky-timeline {
+  position: fixed;
+  bottom: 0; /* Stick to the bottom of the viewport */
+  left: 0;
+  width: 100%; /* Full width at the bottom */
+  background: #fff; /* Background color to avoid transparency issues */
+  border-top: 1px solid #ddd; /* Optional: Add border to visually separate */
+  z-index: 100; /* Optional: Ensure it's above other content */
+}
+
+
+
+.sticky-timeline {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 0; /* Adjust the top position if needed */
+  z-index: 100; /* Optional: Ensure it's above other content */
+  background: #fff; /* Optional: Set background color to avoid transparency issues */
+  padding: 10px; /* Optional: Add some padding if needed */
+  border-bottom: 1px solid #ddd; /* Optional: Add border to visually separate */
+}
+
+/* Additional styling for .spending-timeline if needed */
+.spending-timeline {
+  text-align: center;
+  margin-top: 20px;
+  
+  .timeline-options {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  button {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+  
+    &.active,
+    &:hover {
+      background-color: #007bff;
+      color: white;
+    }
+  }
+}

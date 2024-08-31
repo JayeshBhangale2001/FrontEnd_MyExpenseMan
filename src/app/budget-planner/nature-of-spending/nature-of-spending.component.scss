@@ -1,0 +1,32 @@
+.nature-of-spending {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  
+    .amount {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+    }
+  
+    .chart {
+      margin: 20px auto;
+      max-width: 400px;
+    }
+  
+    .top-categories {
+      margin-top: 20px;
+    }
+  
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+  
+    li {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+  }
+  

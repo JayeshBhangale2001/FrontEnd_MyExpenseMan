@@ -14,9 +14,13 @@ import { MatTableModule } from '@angular/material/table';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, Routes } from '@angular/router';
-import { AuthInterceptor } from './auth.interceptor'; // Adjust the import path as necessary
+
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { AuthInterceptor } from './auth.interceptor'; // Adjust the import path as necessary
 //import { CustomDatetimePickerComponent } from '../app/custom-datetime-picker/custom-datetime-picker.component'; 
+import { Chart, registerables } from 'chart.js';
+import { NgxEchartsModule } from 'ngx-echarts';
+Chart.register(...registerables);
 const routes: Routes = [
   { path: '', redirectTo: 'budget-planner/login', pathMatch: 'full' }, // Redirect root to login
   { path: 'budget-planner', loadChildren: () => import('./budget-planner/budget-planner.module').then(m => m.BudgetPlannerModule) }
@@ -41,7 +45,8 @@ export const appConfig: ApplicationConfig = {
       MatDatepickerModule,
       MatNativeDateModule,
       MatIconModule,
-      NgxMaterialTimepickerModule
+      NgxMaterialTimepickerModule,
+      NgxEchartsModule.forRoot({ echarts: () => import('echarts') })
     //  CustomDatetimePickerComponent
     )
   ]
