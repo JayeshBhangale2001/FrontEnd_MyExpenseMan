@@ -41,7 +41,8 @@ export class SpendingCategoriesLabelsComponent implements OnChanges {
 
   public barChartOptions: EChartsOption = {
     title: {
-      text: 'Spending Trend'
+      text: 'Spending Trend',
+      left: 'center'
     },
     tooltip: {},
     xAxis: {
@@ -73,22 +74,27 @@ ngOnChanges(changes: SimpleChanges): void {
 
 private updatePieChartData(): void {
   console.log('Initial categoriesData:', this.categoriesData);
-  const categoryData = this.categoriesData || {};
+  
+  // Assuming categoriesData is an object with category names as keys and amounts as values
+  const categoryData = this.categoriesData?.categoryData || {}; 
+  
   const pieData = Object.keys(categoryData).map(key => ({
     name: key,
     value: categoryData[key]
   }));
+
   console.log('Converted pieData:', pieData);
 
   if (this.pieChartInstance) {
     console.log('Updating pie chart with new data');
     this.pieChartInstance.setOption({
       series: [{
-        data: pieData
+        data: pieData // Use the correct data here
       }]
     });
   }
 }
+
 
 private updateBarChartData(): void {
   const trendData = this.trendData || {};

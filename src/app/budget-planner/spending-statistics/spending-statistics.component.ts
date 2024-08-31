@@ -35,11 +35,15 @@ export class SpendingStatisticsComponent implements OnInit {
       .subscribe(data => {
         console.log('Fetched statistics data:', data);
         this.trendData = data.trendData || {}; // Ensure default empty object
-        this.categoriesData = data.categoryData || {}; // Ensure default empty object
+        this.categoriesData = {
+          categoryData: data.categoryData || {},
+          totalAmount: data.totalAmount || 0,
+          topExpenses: data.topExpenses || []
+        };
         console.log('Updated trendData:', this.trendData);
         console.log('Updated categoriesData:', this.categoriesData);
       }, error => {
         console.error('Error fetching statistics:', error);
       });
-  }
+}
 }
