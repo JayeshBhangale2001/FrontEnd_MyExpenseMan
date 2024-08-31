@@ -1,8 +1,13 @@
 <div class="container">
   <div class="scrollable-content">
-    <app-spending-categories-labels [categoriesData]="categoriesData" [trendData]="trendData"></app-spending-categories-labels>
+    <app-spending-categories-labels
+  [categoriesData]="categoriesData"
+  [trendData]="trendData"
+  (categoryClicked)="onCategoryClick($event)"
+  (trendClicked)="onTrendClick($event)">
+</app-spending-categories-labels>
 
-  </div>
+</div>
   <div class="sticky-timeline">
     <app-spending-timeline [timelineOptions]="timelineOptions"
                            [selectedTimeline]="selectedTimeline"
@@ -10,3 +15,11 @@
     </app-spending-timeline>
   </div>
 </div>
+
+    <!-- Popup for displaying detailed data -->
+    <app-data-popup
+    *ngIf="showPopup"
+    [data]="popupData"
+    [displayedColumns]="displayedColumns"
+    (close)="closePopup()">
+  </app-data-popup>
