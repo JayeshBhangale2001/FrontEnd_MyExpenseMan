@@ -1,5 +1,5 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild ,ChangeDetectorRef} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -47,14 +47,20 @@ export class ReusableTableComponent implements OnInit, OnChanges {
     this.displayedColumns = this.columns;
   }
 
+
+  constructor(private cd: ChangeDetectorRef) {
+  }
   ngOnChanges(changes: SimpleChanges) {
     if (changes['data']) {
+      this.cd.detectChanges();
       console.log('Data changed:', this.data);
       this.dataSource.data = this.data;
       if (this.paginator) {
+        this.cd.detectChanges();
         this.dataSource.paginator = this.paginator;
       }
       if (this.sort) {
+        this.cd.detectChanges();
         this.dataSource.sort = this.sort;
       }
     }

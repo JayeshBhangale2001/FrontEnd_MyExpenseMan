@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output,OnChanges,EventEmitter, SimpleChanges } from '@angular/core';
 import { EChartsOption, SeriesOption } from 'echarts';
 
 @Component({
@@ -9,6 +9,8 @@ import { EChartsOption, SeriesOption } from 'echarts';
 export class SpendingCategoriesLabelsComponent implements OnChanges {
   @Input() categoriesData: any;
   @Input() trendData: any;
+  @Output() categoryClicked = new EventEmitter<string>();  // Emit category name
+  @Output() trendClicked = new EventEmitter<string>();     // Emit date
 
   public pieChartOptions: EChartsOption = {
     title: {
@@ -114,14 +116,22 @@ private updateBarChartData(): void {
   }
 }
 
+
+
 onPieChartInit(chart: any) {
   this.pieChartInstance = chart;
-  console.log('Pie Chart instance initialized:', this.pieChartInstance);
+
+  this.pieChartInstance.on('click', (params: any) => {
+    this.categoryClicked.emit(params.name);  // Emit the category name
+  });
 }
 
 onBarChartInit(chart: any) {
   this.barChartInstance = chart;
-  console.log('Bar Chart instance initialized:', this.barChartInstance);
+
+  this.barChartInstance.on('click', (params: any) => {
+    this.trendClicked.emit(params.name);  // Emit the date
+  });
 }
 
 }

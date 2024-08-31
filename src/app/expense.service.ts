@@ -1,8 +1,8 @@
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Expense, PartialExpense } from './models/expense.model';
-import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -52,5 +52,23 @@ export class ExpenseService {
       .set('endDate', endDate.toISOString().split('T')[0]);
 
     return this.http.get<any>(`${this.apiUrl}/statistics`, { headers: this.getAuthHeaders(), params });
+  }
+
+  // New method to fetch detailed category data
+  getDetailedCategoryData(categoryName: string, timeline: string, startDate: Date, endDate: Date): Observable<any> {
+    const params = new HttpParams()
+    .set('category', categoryName)
+    .set('timeline', timeline)
+    .set('startDate', startDate.toISOString().split('T')[0]) // Convert to 'YYYY-MM-DD' format
+    .set('endDate', endDate.toISOString().split('T')[0]);
+
+    return this.http.get<any>(`${this.apiUrl}/detailed-category`, { headers: this.getAuthHeaders(), params });
+  }
+
+  // New method to fetch detailed trend data
+  getDetailedTrendData(date: string): Observable<any> {
+    const params = new HttpParams().set('date', date);
+
+    return this.http.get<any>(`${this.apiUrl}/detailed-trend`, { headers: this.getAuthHeaders(), params });
   }
 }

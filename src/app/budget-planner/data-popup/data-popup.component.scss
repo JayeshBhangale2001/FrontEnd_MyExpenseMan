@@ -1,0 +1,60 @@
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it's on top of other content */
+}
+
+.popup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%; /* Adjust width to fit within screen size */
+  max-width: 90vw; /* Ensure it does not exceed 90% of viewport width */
+  max-height: 90vh; /* Ensure it does not exceed 90% of viewport height */
+  overflow: auto; /* Add scrollbars if content overflows */
+  box-sizing: border-box; /* Include padding in the element's total width and height */
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+/* Ensure the table fits within the popup */
+app-reusable-table {
+  width: 100%;
+}
+
+table {
+  width: 100%; /* Full width of the popup */
+  table-layout: fixed; /* Fixed layout for columns */
+}
+
+th, td {
+  overflow: hidden; /* Hide overflow text */
+  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+  .popup-content {
+    width: 95%;
+    max-width: 95vw;
+    max-height: 95vh;
+  }
+}
