@@ -1,0 +1,22 @@
+<div class="spending-categories-labels">
+  <h3>Spending by Categories</h3>
+  <div class="amount">₹{{ categoriesData?.totalAmount }}</div>
+
+  <div class="chart">
+    <div echarts [options]="pieChartOptions" (chartInit)="onPieChartInit($event)" class="demo-chart"></div>
+  </div>
+
+  <div class="trend">
+    <h4>Trend</h4>
+    <div echarts [options]="barChartOptions" (chartInit)="onBarChartInit($event)" class="demo-chart"></div>
+  </div>
+
+  <div class="top-expenses">
+    <h4>Top 5 Expenses</h4>
+    <ul>
+      <li *ngFor="let expense of categoriesData?.topExpenses">
+        {{ expense.label }} - ₹{{ expense.amount }}
+      </li>
+    </ul>
+  </div>
+</div>

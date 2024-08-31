@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="scrollable-content">
+    <app-spending-categories-labels [categoriesData]="categoriesData" [trendData]="trendData"></app-spending-categories-labels>
+
+  </div>
+  <div class="sticky-timeline">
+    <app-spending-timeline [timelineOptions]="timelineOptions"
+                           [selectedTimeline]="selectedTimeline"
+                           (timelineChange)="onTimelineChange($event)">
+    </app-spending-timeline>
+  </div>
+</div>

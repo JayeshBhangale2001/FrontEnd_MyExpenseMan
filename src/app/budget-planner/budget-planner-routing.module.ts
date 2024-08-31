@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SipCalculatorComponent } from './sip-calculator/sip-calculator.component';
 import { AccountComponent } from './account/account.component';
+import { BudgetComponent } from './budget/budget.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ExpenseComponent } from './expense/expense.component';
 import { HistoryComponent } from './history/history.component';
@@ -10,9 +10,12 @@ import { InvestmentComponent } from './investment/investment.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
+import { SipCalculatorComponent } from './sip-calculator/sip-calculator.component';
 import { TodoComponent } from './todo/todo.component';
 import { UserDefinedListsComponent } from './user-defined-list/user-defined-list.component';
-import { BudgetComponent } from './budget/budget.component';
+import { SpendingStatisticsComponent } from './spending-statistics/spending-statistics.component';
+
+
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'side-nav', component: SideNavComponent },
@@ -27,6 +30,7 @@ const routes: Routes = [
   { path: 'sip-calculator', component: SipCalculatorComponent },  // Changed path to lowercase
   { path: 'investment', component: InvestmentComponent },  
   { path: 'budget', component: BudgetComponent },  
+  { path: 'spending-statistics', component: SpendingStatisticsComponent },  // Added SpendingStatistics route
   { path: '', redirectTo: 'login', pathMatch: 'full' } // Default route
 ];
 

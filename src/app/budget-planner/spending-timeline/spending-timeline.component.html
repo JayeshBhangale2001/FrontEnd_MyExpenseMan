@@ -1,0 +1,9 @@
+<div class="spending-timeline">
+  <div class="timeline-options">
+    <button *ngFor="let option of timelineOptions"
+            [class.active]="option === selectedTimeline"
+            (click)="selectTimeline(option)">
+      {{ option }}
+    </button>
+  </div>
+</div>

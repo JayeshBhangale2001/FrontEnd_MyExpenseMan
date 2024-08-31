@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Expense, PartialExpense } from './models/expense.model';
@@ -42,5 +42,15 @@ export class ExpenseService {
 
   deleteExpense(expenseId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${expenseId}`, { headers: this.getAuthHeaders() });
+  }
+
+   // New method to fetch expense statistics
+   getExpenseStatistics(timeline: string, startDate: Date, endDate: Date): Observable<any> {
+    const params = new HttpParams()
+      .set('timeline', timeline)
+      .set('startDate', startDate.toISOString().split('T')[0]) // Convert to 'YYYY-MM-DD' format
+      .set('endDate', endDate.toISOString().split('T')[0]);
+
+    return this.http.get<any>(`${this.apiUrl}/statistics`, { headers: this.getAuthHeaders(), params });
   }
 }
